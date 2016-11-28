@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>message board @ snowdrop and lzqyydy</title>
+	<script src="js/jquery-3.1.1.js"></script>
+	<script src="js/jquery.color.js"></script>
+	<script src="js/main.js" ></script>
+	<script src="js/options.js" ></script>
+	<script src="js/states.js" ></script>
+	<script src="js/init.js" ></script>
+	<script src="js/util.js" ></script>
+	<script src="js/loader.js" ></script>
+	<link rel="stylesheet" href="css/module.css" />
+	<link rel="stylesheet" href="css/index.css" />
+</head>
+<body>
+	<header class="module-header">
+		<nav class="module-header-nav">
+			<div class="container flex">
+				<a href="#?" class="module-header-button-menu"></a>
+				<li class="module-header-nav-li">
+					<a href="#?" >nav1</a>
+					<ul>
+						<li class="module-header-subnav-li"><a href="#?">subnav</a></li>
+						<li class="module-header-subnav-li"><a href="#?">subnav</a></li>
+						<li class="module-header-subnav-li"><a href="#?">subnav</a></li>
+						<li class="module-header-subnav-li"><a href="#?">subnav</a></li>
+						<li class="module-header-subnav-li"><a href="#?">subnav</a></li>
+					</ul>
+				</li>
+				<li class="module-header-nav-li"><a href="#?">nav2</a>
+					<ul>
+						<li class="module-header-subnav-li"><a href="#?">subnav</a></li>
+						<li class="module-header-subnav-li"><a href="#?">subnav</a></li>
+						<li class="module-header-subnav-li"><a href="#?">subnav</a></li>
+						<li class="module-header-subnav-li"><a href="#?">subnav</a></li>
+						<li class="module-header-subnav-li"><a href="#?">subnav</a></li>
+					</ul>
+				</li>
+				<li class="module-header-nav-li"><a href="#?">nav3</a>
+					<ul>
+						<li class="module-header-subnav-li"><a href="#?">subnav</a></li>
+						<li class="module-header-subnav-li"><a href="#?">subnav</a></li>
+						<li class="module-header-subnav-li"><a href="#?">subnav</a></li>
+						<li class="module-header-subnav-li"><a href="#?">subnav</a></li>
+						<li class="module-header-subnav-li"><a href="#?">subnav</a></li>
+					</ul>
+				</li>
+				<li class="module-header-nav-li"><a href="#?">nav4</a>
+					<ul>
+						<li class="module-header-subnav-li"><a href="#?">subnav</a></li>
+						<li class="module-header-subnav-li"><a href="#?">subnav</a></li>
+						<li class="module-header-subnav-li"><a href="#?">subnav</a></li>
+						<li class="module-header-subnav-li"><a href="#?">subnav</a></li>
+						<li class="module-header-subnav-li"><a href="#?">subnav</a></li>
+					</ul>
+				</li>
+				<a href="index.html" class="module-header-logo">
+					made by 非洲黑姑娘传销头目与欧皇魔术师
+				</a>
+			</div>
+		</nav>
+	</header>
+	<div class="module-main">
+		<div class="container flex">
+			<aside class="module-aside">
+				<li class="module-aside-li"><a href="#?">sector</a></li>
+				<li class="module-aside-li"><a href="#?">sector</a></li>
+				<li class="module-aside-li"><a href="#?">sector</a></li>
+				<li class="module-aside-li"><a href="#?">sector</a></li>
+				<li class="module-aside-li"><a href="#?">sector</a></li>
+				<li class="module-aside-li"><a href="#?">sector</a></li>
+				<li class="module-aside-li"><a href="#?">sector</a></li>
+				<li class="module-aside-li"><a href="#?">sector</a></li>
+				<li class="module-aside-li"><a href="#?">sector</a></li>
+				<li class="module-aside-li"><a href="#?">sector</a></li>
+				<li class="module-aside-li"><a href="#?">sector</a></li>
+				<li class="module-aside-li"><a href="#?">sector</a></li>
+			</aside>
+			<div class="module-middle">
+				<img class="module-middle-loading" src="img/loading.gif">
+				<div class="module-middle-pageRoll">
+					<button class="module-middle-page-button previous">上一页</button>
+					<span class="module-middle-pageNumber"></span>
+					<button class="module-middle-page-button next">下一页</button>
+				</div>
+				<!-- <section class="module-middle-articleBox" style="margin-bottom: 1000px;">
+					<div class="module-middle-article">
+						<h1 class="module-middle-article-title"></h1>
+						<h2 class="module-middle-article-subTitle"></h2>
+						<p class="module-middle-article-text"></p>
+					</div>
+					<a href="javascript:void(0)" class="module-middle-articleBox-button module-middle-articleBox-slide">
+						open
+					</a>
+					<div class="module-middle-commentBox">
+						<button class="module-middle-commentBox-button">发送评论</button>
+						<div class="module-middle-comment">// x N
+							<div class="module-middle-comment-title">
+								<h1>title</h1>
+								<h2>date</h2>
+							</div>
+							<div class="module-middle-comment-text ">text</div>
+						</div>
+					</div>
+				</section> -->
+			</div>
+			<div class="module-reply">
+				<div class="module-reply-toggle"><</div>
+				<div class="module-reply-area">
+					<div>
+						<span class="module-reply-label" id="module-reply-status"></span>
+					</div>
+					<div>
+						<span class="module-reply-label">标题:</span>
+						<input id="reply-title" class="module-reply-object" type="text" name="title" />
+					</div>
+					<div>
+						<span class="module-reply-label">正文:</span>
+						<textarea id="reply-body" class="module-reply-object" name="body" placeholder="字数限制为200字 不包括空格" maxlength="2000" minlength="1"></textarea>
+					</div>
+					<button class="module-reply-submit">Fa♂送</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
