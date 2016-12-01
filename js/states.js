@@ -3,12 +3,15 @@ CLC.states={
 	boardSection:"admin",
 	postsPageNum:1,
 	postsPageMax:1,
-	reposPageNum:1,
+	//放入各个评论盒中
+	//reposPageNum:1,
 	reposPageMax:1,
 	newpoWindowShow: false,
-	newpoLID: "",
+	postID: "",
 	
 	newpoAlarmTimer:0,
 	
-	lastSlideButton:0,
+	listForNewRepo:0,
+
+	currentBox:null,
 };
