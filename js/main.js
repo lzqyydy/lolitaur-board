@@ -27,25 +27,10 @@ $(function(){
 
 	$(".module-middle-commentBox-button").each(function(i){
 		$(this).unbind("click").click(function(){
-			CLC.states.newpoLID = $(".module-middle-articleBox")[i]._pageId;
-			CLC.states.lastSlideButton = $(".module-middle-articleBox:eq("+i+")").find(".module-middle-articleBox-slide");
+			CLC.states.postID = $(".module-middle-commentBox-commentList")[i]._pageId;
+			CLC.states.listForNewRepo = $(".module-middle-articleBox:eq("+i+")").find(".module-middle-commentBox-commentList")[0];
 			$(".module-reply-toggle").click();
 		})
 	})
 })
 
-function oldInit(){
-	/*article main*/
-	$(function(){
-		CLC.article.elementCreate();
-		CLC.article.articleDataInit();
-		CLC.article.pageButtonInit();
-		$(".module-middle-page-button.next").unbind("click").click(function(){
-			CLC.article.pageNext();
-		})
-		$(".module-middle-page-button.previous").unbind("click").click(function(){
-			CLC.article.pagePrevious();
-		})
-	});
-	
-}

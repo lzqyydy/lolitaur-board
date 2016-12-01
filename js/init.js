@@ -104,8 +104,11 @@ CLC.init = {
 					$(this).html(CLC.options.postsOpenedStr);
 					$(this).parent().children(".module-middle-article")
 					.stop(true).animate({height:this.artiHeight},300);
-					CLC.loader.commentDataLoad(this);
+					$(this).parent().find(".module-middle-commentBox-commentList").empty();
+					$(this).parent().find(".module-middle-commentBox-commentList")[0].reposPageNum = 1;
+					CLC.loader.commentDataLoad($(this).parent().find(".module-middle-commentBox-commentList")[0]);
 				}else{
+
 					// console.log("close");
 					CLC.init.articleBoxHeightInit();
 				}
@@ -145,7 +148,7 @@ CLC.init = {
 		},1000);
 	},
 	replyWindowInit:function(){
-		if(CLC.states.newpoLID == ""){
+		if(CLC.states.postID == ""){
 			$("#module-reply-status").html("发送新串");
 		}else{
 			$("#module-reply-status").html("发送评论");
@@ -163,18 +166,11 @@ CLC.init = {
 	},
 	replyWindowDataInit:function(){
 		$(".module-reply-object").val("");
-		CLC.states.newpoLID = "";
+		CLC.states.postID = "";
 		// console.log("empty");
 	},
-	commentContainerInit:function(artiBox){
-		var box = $("<div/>").addClass("module-middle-commentBox");
-		var btn = $("<button/>").addClass("module-middle-commentBox-button").html("发送评论");
-		box.append(btn);
-		var list = $("<div/>").addClass("module-middle-commentBox-commentList");
-		box.append(list);
-	
-		list.scroll(CLC.util.detectBottom);
-	
+	commentItemInit:function(commentList){
+		var page = $("<div/>").addClass("module-middle-commentBox-commentPage");
 		for(var i=0;i<CLC.options.reposPerPage;i++){
 			var cmt = $("<div/>").addClass("module-middle-comment");
 				var title = $("<div/>").addClass("module-middle-comment-title");
@@ -183,8 +179,22 @@ CLC.init = {
 				var text = $("<div/>").addClass("module-middle-comment-text");
 			title.append(h1,h2);
 			cmt.append(title,text);
-			list.append(cmt);
+			page.append(cmt);
 		}
+		$(commentList).append(page);
+	},
+	commentContainerInit:function(artiBox){
+		var box = $("<div/>").addClass("module-middle-commentBox");
+		var btn = $("<button/>").addClass("module-middle-commentBox-button").html("发送评论");
+		box.append(btn);
+		var list = $("<div/>").addClass("module-middle-commentBox-commentList");
+		box.append(list);
+	
+		list.scroll(CLC.util.detectRepoBottom(this.commentItemInit,CLC.loader.commentDataLoad));
+		
+		//获取评论时再创建
+		//this.commentItemInit(list);
+
 		artiBox.append(box);
 	},
 	commentAnimationInit:function(childStuff){

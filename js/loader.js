@@ -2,11 +2,10 @@ CLC.loader = {
 	articleDataLoad:function(){
 		$.ajax({
 			type:"get",
-			url:CLC.options.getPostURL+CLC.states.boardSection+"/"+CLC.states.postsPageNum,
+			url:CLC.options.getPostURL+"/"+CLC.states.boardSection+"/"+CLC.states.postsPageNum,
 			async:true,
 			//data:{"page",CLC.article.page},
 			success:function(data){
-				console.log(data);
 				CLC.loader.articleDataFill(data);
 			}
 		});
@@ -20,7 +19,7 @@ CLC.loader = {
 				box.find(".module-middle-article-subTitle").html(data[i].author+"&nbsp;"+new Date(data[i].date).toLocaleDateString()+"&nbsp;"+new Date(data[i].date).toLocaleTimeString());
 				box.find(".module-middle-article-text").html(data[i].body);
 				box.find(".module-middle-articleBox-button").html(CLC.options.postsOpenStr);
-				this._pageId = data[i].LID;
+				box.find(".module-middle-commentBox-commentList")[0]._pageId = data[i].LID;
 				box.show();
 			}
 		});
@@ -29,7 +28,7 @@ CLC.loader = {
 	pageButtonLoadStatus:function(){
 		$.ajax({
 			type:"get",
-			url: CLC.options.getPostURL+CLC.states.boardSection+"/"+"pageCount",
+			url: CLC.options.getPostURL+"/"+CLC.states.boardSection+"/"+"pageCount",
 			async:true,
 			success:function(data){
 				CLC.states.postsPageMax = data;
@@ -56,9 +55,9 @@ CLC.loader = {
 			// console.log("legal");
 			$.ajax({
 				type:"post",
-				url:CLC.options.newPostURL,
+				url:CLC.options.newPostURL+"/"+CLC.states.boardSection,
 				async:true,
-				data:{"section":CLC.states.boardSection,"title":$("#reply-title").val(),"body":$("#reply-body").val()},
+				data:{"title":$("#reply-title").val(),"body":$("#reply-body").val()},
 				success:function(){
 					CLC.init.replyWindowInit();
 					CLC.loader.articleDataLoad();
@@ -67,7 +66,7 @@ CLC.loader = {
 			});
 		}else if(legalLength<=0){
 			$("#module-reply-status").html("应至少有1个非空格字符");
-		}else if(legalLength>CLC.reply.legalLengthMax){
+		}else if(legalLength>CLC.options.replyLegalLengthMax){
 			$("#module-reply-status").html("非空格字符最多为200个");
 		}else{
 			alert("发生未知错误 请刷新页面");
@@ -78,51 +77,56 @@ CLC.loader = {
 		},1000);
 	},
 	submitNewComment:function(){
+		console.log(CLC.states.postID);
 		var legalStr = $("#reply-body").val().match(/\S/img);
 		if(legalStr == null)
 			legalStr = [];
 		var legalLength = legalStr.length;
-		if(legalLength>0&&legalLength<=CLC.reply.legalLengthMax){
+		if(legalLength>0&&legalLength<=CLC.options.replyLegalLengthMax){
 			// console.log("legal");
 			$.ajax({
 				type:"post",
-				url:CLC.reply.newCommentURL,
+				url:CLC.options.newRepoURL+"/"+CLC.states.postID,
 				async:true,
-				data:{"postID":CLC.states.newpoLID ,"title":$("#reply-title").val(),"body":$("#reply-body").val()},
+				data:{"title":$("#reply-title").val(),"body":$("#reply-body").val()},
 				success:function(){
 					CLC.init.replyWindowInit();
-					CLC.loader.commentDataLoad(CLC.comment.lastSlideButton);
+					CLC.loader.commentDataLoad(CLC.states.listForNewRepo);
 				},
 			});
 		}else if(legalLength<=0){
 			$("#module-reply-status").html("应至少有1个非空格字符");
-		}else if(legalLength>CLC.reply.legalLengthMax){
+		}else if(legalLength>CLC.options.replyLegalLengthMax){
 			$("#module-reply-status").html("非空格字符最多为200个");
 		}else{
 			alert("发生未知错误 请刷新页面");
 		}
-		CLC.states.newpoLID = "";
+		CLC.states.postID = "";
 		clearTimeout(CLC.states.newpoAlarmTimer);
 		CLC.states.newpoAlarmTimer = setTimeout(function(){
 			$("#module-reply-status").html("发送评论");
 		},1000);
 	},
-	commentDataLoad:function(childStuff){
-		CLC.states.newpoLID = $(childStuff).parents(".module-middle-articleBox")[0]._pageId;
+	commentDataLoad:function(commentList){
+		CLC.states.postID = commentList._pageId;
 	
 		$.ajax({
 			type:"get",
-			url:CLC.options.getRepoURL+CLC.states.newpoLID+"/"+CLC.states.reposPageNum,
+			url:CLC.options.getRepoURL+"/"+CLC.states.postID+"/"+commentList.reposPageNum++,
 			async:true,
 			success:function(data){
-				CLC.loader.commentDataFill(data,$(childStuff).parent());
-				CLC.init.commentAnimationInit(childStuff);
+				CLC.init.commentItemInit(commentList);
+				CLC.loader.commentDataFill(data,$(commentList).children(".module-middle-commentBox-commentPage").last());
+				CLC.init.commentAnimationInit(commentList);
+			},
+			error:function(xhr,status,error){
+				commentList.reposPageNum = -1;
 			}
 		})
-		CLC.states.newpoLID = "";
+		CLC.states.postID = "";
 	},
-	commentDataFill:function(data,parentE){
-		parentE.find(".module-middle-comment").each(function(i){
+	commentDataFill:function(data,commentPage){
+		$(commentPage).find(".module-middle-comment").each(function(i){
 			var cmt = $(this);
 			// cmt.hide();
 			cmt.slideUp(1);
