@@ -10,6 +10,7 @@ CLC.options={
 	/* new po attributes*/
 	replyLegalLengthMax:500,
 	/* API URLs */
+	getSectionURL:"http://localhost:3000/apis/lolitaur/sections",
 	getPostURL:"http://localhost:3000/apis/lolitaur/posts",
 	getRepoURL:"http://localhost:3000/apis/lolitaur/repos",
 	newPostURL: "http://localhost:3000/apis/lolitaur/posts/new",

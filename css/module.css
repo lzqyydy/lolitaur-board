@@ -221,6 +221,15 @@ header.module-header{
 		margin: 10px 0;
 		color: #ccc;
 	}
+	.module-middle-article-image{
+		margin: 10px 5px;
+		float: left;
+		max-width: 100px;
+		max-height: 100px;
+	}
+	.module-middle-article-image:hover{
+		box-shadow: 0 0 3px 1px #add6ff;
+	}
 	.module-middle-article-text{
 		font-size: 14px;
 		line-height: 23px;
@@ -432,11 +441,12 @@ header.module-header{
 	}
 	.module-reply-label{
 		color: #ccc;
-		display: block;
+		display: inline;
 		line-height: 40px;
+		vertical-align: top;
 	}
 	.module-reply-object{
-		width: 90%;
+		width: 80%;
 		margin-left: 10%;
 		height: 30px;
 		font-size: 24px;

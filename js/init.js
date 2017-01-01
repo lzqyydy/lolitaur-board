@@ -10,17 +10,6 @@ CLC.init = {
 				$(this).children("ul").slideUp(500);
 			});
 		});
-	},
-
-	//-------------------------------------------------
-	sidenavInit:function (){
-		//asideMenu show/hide effect
-		$(".module-aside-li").each(function(i,li){
-			$(li).css("top",i*50+"px");
-		});
-
-		$(".module-aside").height($(".module-aside-li").height()*$(".module-aside-li").length);
-
 		$(".module-header-button-menu").click(function(){
 			if(CLC.states.sidenavDisplay == 0){
 				//show
@@ -49,6 +38,30 @@ CLC.init = {
 				console.log("asideMenuFunction Error!");
 			}
 		});
+	},
+
+	//-------------------------------------------------
+	sidenavInit:function(sectionData){
+		var sidebar = $("#sections");
+		for(var i=0;i<sectionData.length;i++){
+			var box = $("<li/>").addClass("module-aside-li");
+			var link = $("<a/>").attr("href","#?").text(sectionData[i]);
+			link.click(function(){
+				CLC.states.boardSection=$(this).text();
+				CLC.loader.articleDataLoad();
+			});
+			box.append(link);
+			sidebar.append(box);
+		}
+		CLC.init.sidenavAnimationInit();
+	},
+	sidenavAnimationInit:function (){
+		//asideMenu show/hide effect
+		$(".module-aside-li").each(function(i,li){
+			$(li).css("top",i*50+"px");
+		});
+
+		$(".module-aside").height($(".module-aside-li").height()*$(".module-aside-li").length);
 
 		//asideMenu bar effect
 		$(".module-aside-li").each(function(i,li){
@@ -71,13 +84,17 @@ CLC.init = {
 			var arti = $("<div/>").addClass("module-middle-article");
 			var h1 = $("<h1/>").addClass("module-middle-article-title");
 			var h2 = $("<h2/>").addClass("module-middle-article-subTitle");
+			var data = $("<div/>").addClass("module-middle-article-data");
+			var img = $("<img/>").addClass("module-middle-article-image");
 			var p = $("<p/>").addClass("module-middle-article-text");
 			var a = $("<a/>").attr("href","javascript:void(0)")
 			.addClass("module-middle-articleBox-button module-middle-articleBox-slide");
 	
 			arti.append(h1);
 			arti.append(h2);
-			arti.append(p);
+			arti.append(data);
+			data.append(img);
+			data.append(p);
 			box.append(arti);
 			box.append(a);
 			CLC.init.commentContainerInit(box);
@@ -167,6 +184,7 @@ CLC.init = {
 	replyWindowDataInit:function(){
 		$(".module-reply-object").val("");
 		CLC.states.postID = "";
+		CLC.states.postImage="";
 		// console.log("empty");
 	},
 	commentItemInit:function(commentList){

@@ -65,7 +65,8 @@
 	</header>
 	<div class="module-main">
 		<div class="container flex">
-			<aside class="module-aside">
+			<aside class="module-aside" id="sections">.
+			<!--
 				<li class="module-aside-li"><a href="#?">sector</a></li>
 				<li class="module-aside-li"><a href="#?">sector</a></li>
 				<li class="module-aside-li"><a href="#?">sector</a></li>
@@ -78,6 +79,7 @@
 				<li class="module-aside-li"><a href="#?">sector</a></li>
 				<li class="module-aside-li"><a href="#?">sector</a></li>
 				<li class="module-aside-li"><a href="#?">sector</a></li>
+			-->
 			</aside>
 			<div class="module-middle">
 				<img class="module-middle-loading" src="img/loading.gif">
@@ -121,10 +123,14 @@
 						<span class="module-reply-label">正文:</span>
 						<textarea id="reply-body" class="module-reply-object" name="body" placeholder="字数限制为200字 不包括空格" maxlength="2000" minlength="1"></textarea>
 					</div>
+					<div>
+						<span class="module-reply-label">图片:</span>
+						<input type="file" class="module-reply-object" id="reply-files" name="files[]" />
+					</div>
 					<button class="module-reply-submit">Fa♂送</button>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
-</html>
+</html> 
