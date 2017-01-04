@@ -1,10 +1,19 @@
 CLC.loader = {
+	sectionLoad:function(callback){
+		$.ajax({
+			type:"get",
+			url:CLC.options.getSectionURL,
+			async:true,
+			success:function(data){
+				callback(data);
+			}
+		});
+	},
 	articleDataLoad:function(){
 		$.ajax({
 			type:"get",
 			url:CLC.options.getPostURL+"/"+CLC.states.boardSection+"/"+CLC.states.postsPageNum,
 			async:true,
-			//data:{"page",CLC.article.page},
 			success:function(data){
 				CLC.loader.articleDataFill(data);
 			}
@@ -17,6 +26,7 @@ CLC.loader = {
 			if(i<data.length){
 				box.find(".module-middle-article-title").html(data[i].title);
 				box.find(".module-middle-article-subTitle").html(data[i].author+"&nbsp;"+new Date(data[i].date).toLocaleDateString()+"&nbsp;"+new Date(data[i].date).toLocaleTimeString());
+				box.find(".module-middle-article-image").attr("src",data[i].image);
 				box.find(".module-middle-article-text").html(data[i].body);
 				box.find(".module-middle-articleBox-button").html(CLC.options.postsOpenStr);
 				box.find(".module-middle-commentBox-commentList")[0]._pageId = data[i].LID;
@@ -57,7 +67,7 @@ CLC.loader = {
 				type:"post",
 				url:CLC.options.newPostURL+"/"+CLC.states.boardSection,
 				async:true,
-				data:{"title":$("#reply-title").val(),"body":$("#reply-body").val()},
+				data:{"title":$("#reply-title").val(),"body":$("#reply-body").val(),"image":CLC.states.postImage},
 				success:function(){
 					CLC.init.replyWindowInit();
 					CLC.loader.articleDataLoad();
@@ -77,7 +87,6 @@ CLC.loader = {
 		},1000);
 	},
 	submitNewComment:function(){
-		console.log(CLC.states.postID);
 		var legalStr = $("#reply-body").val().match(/\S/img);
 		if(legalStr == null)
 			legalStr = [];
@@ -88,7 +97,7 @@ CLC.loader = {
 				type:"post",
 				url:CLC.options.newRepoURL+"/"+CLC.states.postID,
 				async:true,
-				data:{"title":$("#reply-title").val(),"body":$("#reply-body").val()},
+				data:{"title":$("#reply-title").val(),"body":$("#reply-body").val(),"image":CLC.states.postImage},
 				success:function(){
 					CLC.init.replyWindowInit();
 					CLC.loader.commentDataLoad(CLC.states.listForNewRepo);

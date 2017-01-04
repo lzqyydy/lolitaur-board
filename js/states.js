@@ -8,6 +8,7 @@ CLC.states={
 	reposPageMax:1,
 	newpoWindowShow: false,
 	postID: "",
+	postImage:"",
 	
 	newpoAlarmTimer:0,
 	
